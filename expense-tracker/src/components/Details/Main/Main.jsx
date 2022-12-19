@@ -7,8 +7,10 @@ import {
   Grid,
   Divider,
 } from "@material-ui/core";
+import List from "./List/List";
 
 import useStyles from "./styles";
+import Form from "./Form/Form";
 
 const Main = () => {
   const classes = useStyles();
@@ -26,12 +28,12 @@ const Main = () => {
           INFOCOMPONENT
         </Typography>
         <Divider />
-        FORMCOMPONENT
+        <Form />
       </CardContent>
       <CardContent className={classes.cardContent}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            LISTCOMPONENT
+            <List />
           </Grid>
         </Grid>
       </CardContent>
