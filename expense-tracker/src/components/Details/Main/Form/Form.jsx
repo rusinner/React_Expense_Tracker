@@ -54,6 +54,7 @@ const Form = () => {
         <FormControl fullWidth>
           <InputLabel>Type</InputLabel>
           <Select
+            defaultValue=""
             value={formData.type}
             onChange={(e) => setFormData({ ...formData, type: e.target.value })}
           >
@@ -66,8 +67,11 @@ const Form = () => {
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
           <Select
+            defaultValue=""
             value={formData.category}
-            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
           >
             {selectedCategories.map((category) => (
               <MenuItem key={category.type} value={category.type}>
