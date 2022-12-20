@@ -1,4 +1,10 @@
 import { Grid } from "@material-ui/core";
+import {
+  PushToTalkButton,
+  PushToTalkButtonContainer,
+  ErrorPanel,
+} from "@speechly/react-ui";
+import PubSub from "pubsub-js";
 
 import Details from "./components/Details/Details";
 import Main from "./components/Details/Main/Main";
@@ -26,6 +32,10 @@ function App() {
           <Details title="Expense" />
         </Grid>
       </Grid>
+      <PushToTalkButtonContainer>
+        <PushToTalkButton />
+        {/* <ErrorPanel /> */}
+      </PushToTalkButtonContainer>
     </div>
   );
 }
