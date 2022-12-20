@@ -12,12 +12,16 @@ import {
 import { ExpenseTrackerContext } from "../../../../context/context";
 import { v4 as uuidv4 } from "uuid";
 import useStyles from "./styles";
-
+import formatDate from "../../../../utils/formatDate";
+import {
+  incomeCategories,
+  expenseCategories,
+} from "../../../../constants/categories";
 const initialState = {
   amount: "",
   category: "",
   type: "Income",
-  date: new Date(),
+  date: formatDate(new Date()),
 };
 
 const Form = () => {
@@ -35,6 +39,10 @@ const Form = () => {
     setFormData(initialState);
   };
   const classes = useStyles();
+  //store catoegories each time depending on type
+  const selectedCategories =
+    formData.type === "Income" ? incomeCategories : expenseCategories;
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -61,8 +69,11 @@ const Form = () => {
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, type: e.target.value })}
           >
-            <MenuItem value="businness">Businness</MenuItem>
-            <MenuItem value="salary">salary</MenuItem>
+            {selectedCategories.map((category) => (
+              <MenuItem key={category.type} value={category.type}>
+                {category.type}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
@@ -78,10 +89,12 @@ const Form = () => {
       <Grid item xs={6}>
         <TextField
           type="date"
-          label="Date"
+          label=" "
           fullWidth
           value={formData.date}
-          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, date: formatDate(e.target.value) })
+          }
         />
       </Grid>
       <Button
