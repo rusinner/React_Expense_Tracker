@@ -1,7 +1,9 @@
 import React, { useReducer, createContext } from "react";
 import contextReducer from "./contextReducer";
 
-const initialState = [];
+// setting when first open the page if already something exists
+// or else initial state is empty array
+const initialState = JSON.parse(localStorage.getItem("transactions")) || [];
 
 export const ExpenseTrackerContext = createContext(initialState);
 
