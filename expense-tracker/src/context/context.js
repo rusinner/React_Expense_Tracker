@@ -19,12 +19,21 @@ export const Provider = ({ children }) => {
   const addTransaction = (transaction) => {
     dispatch({ type: "ADD_TRANSACTION", payload: transaction });
   };
+
+  // total balance handlers using reduce because i
+  // have many transactions and need to handle it to one variable
+  const balance = transactions.reduce((acc, currVal) => {
+    return currVal.type === "Expense"
+      ? acc - currVal.amount
+      : acc + currVal.amount;
+  }, 0);
   return (
     <ExpenseTrackerContext.Provider
       value={{
         deleteTransaction,
         addTransaction,
         transactions,
+        balance,
       }}
     >
       {children}
