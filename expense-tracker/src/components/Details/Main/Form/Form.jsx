@@ -45,7 +45,46 @@ const Form = () => {
     if (segment) {
       if (segment.intent.intent === "add_expense") {
         setFormData({ ...formData, type: "Expense" });
+      } else if (segment.intent.intent === "add_income") {
+        setFormData({ ...formData, type: "Income" });
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "create_transaction"
+      ) {
+        return createTransaction();
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "cancel_transaction"
+      ) {
+        return setFormData(initialState);
       }
+
+      segment.entities.forEach((entity) => {
+        const category = `${entity.value.charAt(0)}${entity.value
+          .slice(1)
+          .toLowerCase()}`;
+        switch (entity.type) {
+          case "amount":
+            setFormData({ ...formData, amount: entity.value });
+            break;
+          case "category":
+            // this is if we call a category that usually is on expenses on incomes
+            if (incomeCategories.map((iC) => iC.type).includes(category)) {
+              setFormData({ ...formData, type: "Income", category });
+            } else if (
+              expenseCategories.map((iC) => iC.type).includes(category)
+            ) {
+              setFormData({ ...formData, type: "Expense", category });
+            }
+            // setFormData({ ...formData, category: category });
+            break;
+          case "date":
+            setFormData({ ...formData, date: entity.value });
+            break;
+          default:
+            break;
+        }
+      });
     }
   }, [segment]);
 
