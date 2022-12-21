@@ -31,6 +31,10 @@ const Form = () => {
   const { segment } = useSpeechContext();
 
   const createTransaction = () => {
+    // do not create transaction if some of theese are true
+    if (Number.isNaN(Number(formData.amount)) || !formData.date.includes("-"))
+      return;
+
     //create new initial state
     const transaction = {
       ...formData,
@@ -85,6 +89,17 @@ const Form = () => {
             break;
         }
       });
+
+      // create button auto
+      if (
+        segment.isFinal &&
+        formData.amount &&
+        formData.category &&
+        formData.amount &&
+        formData.date
+      ) {
+        createTransaction();
+      }
     }
   }, [segment]);
 
