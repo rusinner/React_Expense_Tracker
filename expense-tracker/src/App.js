@@ -2,7 +2,6 @@ import { Grid } from "@material-ui/core";
 import {
   PushToTalkButton,
   PushToTalkButtonContainer,
-  ErrorPanel,
 } from "@speechly/react-ui";
 import PubSub from "pubsub-js";
 
